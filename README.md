@@ -4,7 +4,7 @@ Deniable Cryptographic Key
 
 DeCryKe is a technique to transform almost any cryptographic algorithm into [deniable-one](https://en.wikipedia.org/wiki/Deniable_encryption), it is a decry of [Russia's anti-terrorism law](https://www.theguardian.com/world/2016/jun/26/russia-passes-big-brother-anti-terror-laws) (aka Yarovaya law) and its [FSB implementation](https://translate.google.com/translate?hl=en&sl=auto&tl=en&u=http%3A%2F%2Fpublication.pravo.gov.ru%2FDocument%2FView%2F0001201608120037).
 
-As you might know, now in Russia you are forced to provide the meanings (keys) to decode (decrypt) all the communication and data, other-vise you will be punished.
+As you might know, now in Russia you are forced to provide the meanings (keys) to decode (decrypt) all the communication and data, othervise you will be punished.
 
 It concerns all messengers, websites, emails, social networks, ISPs, etc.
 
@@ -12,7 +12,7 @@ Nonetheless, this law can be easy workarounded, as it was announced.
 
 ## How it works
 
-In cryptography, deniable encryption is the incapacity to prove that a particular data was encrypted, thus the fact of encryption can be denied. Although it is an easy task for a Vernam cipher, it is not for modern ciphers (like AES), regardless all efforts (like chaffing and steganography).
+In cryptography, deniable encryption is the incapacity to prove that a particular data was encrypted, thus the fact of encryption can be denied. Although it is an easy task for Vernam cipher, it is not for modern ciphers (like AES), regardless all efforts (like chaffing and steganography).
 
 A quick example:
 
@@ -24,7 +24,7 @@ A quick example:
 
 Deniable Cryptographic Key focuses on key, rather than encryption algorithm:
 
-1. Alice encrypts the true message (attack at dawn) with the true key (qwerty) and the decoy message (how are you) with the encrypted true message with the true key and sends the encrypted decoy message to Bob.
+1. Alice encrypts the true message (attack at dawn) with the true key (qwerty) and the decoy message (how are you) with the encrypted true message using the true key and sends the encrypted decoy message to Bob.
 
 2. Bob uses the true key to decrypt the key for the decoy message (synchronized with Alice), revealing the true message.
 
@@ -38,9 +38,9 @@ This technique is applicable for almost any encryption algorithm (especially Rus
 
 Moreover, it is possible to use it in emails, websites and even real-time messengers. An idea is to transmit the decoy messages and to store the encrypted true messages in a cloud storage.
 
-This can also protect from rubber-hose cryptanalysis, if one does not possess the tool during the "process", stores the true keys in a secure place and deletes all the traces/logs/evidence of such activity, also the encrypted true message should not exceed cipher's block size (32 bytes for AES-256-CBC), in order not to be suspicious.
+This can also protect from rubber-hose cryptanalysis, if one does not possess the tool during the "process", stores the true keys in a secure place and deletes all the trace/logs/evidence of such activity, also the encrypted true message should not exceed cipher's block size (32 bytes for AES-256-CBC), in order not to be suspicious.
 
-### How to PoC
+### PoC How to
 
 For Linux:
 ```bash
@@ -51,14 +51,17 @@ Fow Windows, you will need [OpenSSL](http://downloads.sourceforge.net/gnuwin32/o
 
 Key Encryption:
 ```bash
-openssl aes-256-cbc -pass file:True_Key -in True_Message -out True_Message.enc
+openssl aes-256-cbc -pass file:True_Key -in True_Message -out True_Message.enc -nosalt
 ```
 
-**replace 'openssl' by '& "C:\Program Files\GnuWin32\bin\openssl.exe"' for Windows**
+Replace 'openssl' by '& "C:\Program Files\GnuWin32\bin\openssl.exe"' for Windows.
 
-**remove '-pass file:True_Key' to provide an interactive passphrase**
+Remove '-pass file:True_Key' to provide an interactive passphrase.
 
-It will produce True_Message.enc that is to be revealed in case of demand, as the key. The True_Message should be securely erased/destroyed (both [Windows](http://www.makeuseof.com/tag/securely-delete-files-hdd-ssd-windows/) and [Linux](http://askubuntu.com/questions/57572/how-to-delete-files-in-secure-manner)) and the True_Key should be kept in a secure place or remembered and destroyed/erased securely. Don't forget to clean all the logs for this operation ([Windows](http://www.wikihow.com/Delete-Run-History-in-Windows) and [Linux](http://superuser.com/questions/384366/remove-a-certain-line-from-bash-history-file)) and it's even better to spoof/decoy it as a "secure random key generation" (by renaming the command to something like "Get-Random > Secure_Key" for Windows and "dd if=/dev/urandom bs=1M count=1 of=Secure_Key" for Linux or "openssl rand 32 > Secure_Key" for both) since, you will encrypt your message with it. Of course, the key (or the pass phrase) should be really [strong](https://www.youtube.com/watch?v=IPphyjkXnPc).
+It will produce True_Message.enc that is to be revealed in case of demand, as the key.
+The True_Message should be securely erased/destroyed (both [Windows](http://www.makeuseof.com/tag/securely-delete-files-hdd-ssd-windows/) and [Linux](http://askubuntu.com/questions/57572/how-to-delete-files-in-secure-manner)) and the True_Key should be kept in a secure place or remembered and destroyed/erased securely.
+Don't forget to clean all the logs for this operation ([Windows](http://www.wikihow.com/Delete-Run-History-in-Windows) and [Linux](http://superuser.com/questions/384366/remove-a-certain-line-from-bash-history-file)) and it's even better to spoof/decoy it as a "secure random key generation" (by renaming the command to something like "Get-Random > Secure_Key" for Windows and "dd if=/dev/urandom bs=1M count=1 of=Secure_Key" for Linux or "openssl rand 32 > Secure_Key" for both) since, you will encrypt your message with it.
+Of course, the key (or the pass phrase) should be really [strong](https://www.youtube.com/watch?v=IPphyjkXnPc).
 
 Encryption:
 ```bash
@@ -69,7 +72,7 @@ It will produce Decoy_Message.enc that is to be sent alongside with the True_Mes
 
 Decryption:
 ```bash
-openssl aes-256-cbc -pass file:True_Key -in True_Message.enc -out True_Message -d
+openssl aes-256-cbc -pass file:True_Key -in True_Message.enc -out True_Message -nosalt -d
 ```
 It will produce True_Message, revealing it. Don't forget to do everything that was mentioned for key encryption (trace wipe).
 
