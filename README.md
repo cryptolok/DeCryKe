@@ -2,7 +2,7 @@
 
 Deniable Cryptographic Key
 
-DeCryKe is a technique to transform almost any cryptographic algorithm into [deniable-one](https://en.wikipedia.org/wiki/Deniable_encryption), it is a decry of [Russia's anti-terrorism law](https://www.theguardian.com/world/2016/jun/26/russia-passes-big-brother-anti-terror-laws) (aka Yarovaya law) and its [FSB implementation](https://translate.google.com/translate?hl=en&sl=auto&tl=en&u=http%3A%2F%2Fpublication.pravo.gov.ru%2FDocument%2FView%2F0001201608120037).
+DeCryKe is a technique to transform almost any cryptographic algorithm into [deniable-one](https://en.wikipedia.org/wiki/Deniable_encryption), it is a decry of [Russia's anti-terrorism law](https://www.theguardian.com/world/2016/jun/26/russia-passes-big-brother-anti-terror-laws) (a.k.a. Yarovaya law) and its [FSB implementation](https://translate.google.com/translate?hl=en&sl=auto&tl=en&u=http%3A%2F%2Fpublication.pravo.gov.ru%2FDocument%2FView%2F0001201608120037).
 
 As you might know, now in Russia you are forced to provide the meanings (keys) to decode (decrypt) all the communication and data, othervise you will be punished.
 
@@ -62,9 +62,9 @@ It will produce True_Message.enc that is to be revealed in case of demand, as th
 
 The True_Message should be securely erased/destroyed (both [Windows](http://www.makeuseof.com/tag/securely-delete-files-hdd-ssd-windows/) and [Linux](http://askubuntu.com/questions/57572/how-to-delete-files-in-secure-manner)) and the True_Key should be kept in a secure place or remembered and destroyed/erased securely.
 
-Don't forget to clean all the logs for this operation ([Windows](http://www.wikihow.com/Delete-Run-History-in-Windows) and [Linux](http://superuser.com/questions/384366/remove-a-certain-line-from-bash-history-file)) and it's even better to spoof/decoy it as a "secure random key generation" (by renaming the command to something like "Get-Random > Secure_Key" for Windows and "dd if=/dev/urandom bs=1M count=1 of=Secure_Key" for Linux or "openssl rand 32 > Secure_Key" for both) since, you will encrypt your message with it.
+Don't forget to clean all the logs for this operation ([Windows](http://www.wikihow.com/Delete-Run-History-in-Windows) and [Linux](http://superuser.com/questions/384366/remove-a-certain-line-from-bash-history-file)) and it's even better to spoof/decoy it as a "secure random key generation" (by renaming the command to something like "Get-Random > Secure_Key" for Windows and "dd if=/dev/urandom bs=1M count=1 of=Secure_Key" for Linux or "openssl rand 32 > Secure_Key" for both) since, you "suppose to" encrypt your message with it.
 
-Of course, the key (or the pass phrase) should be really [strong](https://www.youtube.com/watch?v=IPphyjkXnPc).
+Of course, the key (or the passphrase) should be really [strong](https://www.youtube.com/watch?v=IPphyjkXnPc).
 
 Encryption:
 ```bash
@@ -77,7 +77,9 @@ Decryption:
 ```bash
 openssl aes-256-cbc -pass file:True_Key -in True_Message.enc -out True_Message -nosalt -d
 ```
-It will produce True_Message, revealing it. Don't forget to do everything that was mentioned for key encryption (trace wipe).
+It will produce True_Message, revealing it.
+
+Don't forget to wipe the trace as mentioned for key encryption.
 
 If someone demands you the key, assuming that they have your transmission (Decoy_Message.enc using eavesdropping for instance), you just provide True_Message.enc as the key, so it will decrypt the decoy being sent:
 ```bash
