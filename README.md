@@ -83,7 +83,7 @@ Don't forget to wipe the trace as mentioned for key encryption.
 
 If someone demands you the key, assuming that they have your transmission (Decoy_Message.enc using eavesdropping for instance), you just provide True_Message.enc as the key, so it will decrypt the decoy being sent:
 ```bash
-openssl aes-256-cbc -pass:True_Message.enc -in Decoy_Message.enc -out Decoy_Message -d
+openssl aes-256-cbc -pass file:True_Message.enc -in Decoy_Message.enc -out Decoy_Message -d
 ```
 
 Preferably, the receiver should read Decoy_Message as well and answer using the same technique, so both sides maintain a double conversation (a real-one and a fake-one).
