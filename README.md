@@ -62,7 +62,7 @@ It will produce True_Message.enc that is to be revealed in case of demand, as th
 
 The True_Message should be securely erased/destroyed (both [Windows](http://www.makeuseof.com/tag/securely-delete-files-hdd-ssd-windows/) and [Linux](http://askubuntu.com/questions/57572/how-to-delete-files-in-secure-manner)) and the True_Key should be kept in a secure place or remembered and destroyed/erased securely.
 
-Don't forget to clean all the logs for this operation ([Windows](http://www.wikihow.com/Delete-Run-History-in-Windows) and [Linux](http://superuser.com/questions/384366/remove-a-certain-line-from-bash-history-file)) and it's even better to spoof/decoy it as a "secure random key generation" (by renaming the command to something like "Get-Random > Secure_Key" for Windows and "dd if=/dev/urandom bs=1M count=1 of=Secure_Key" for Linux or "openssl rand 32 > Secure_Key" for both) since, you "suppose to" encrypt your message with it.
+Don't forget to clean all the logs for this operation ([Windows](https://stackoverflow.com/questions/13257775/powershell-clear-history-doesnt-clear-history) and [Linux](http://superuser.com/questions/384366/remove-a-certain-line-from-bash-history-file)) and it's even better to spoof/decoy it as a "secure random key generation" (by renaming the command to something like "Get-Random > Secure_Key" for Windows and "dd if=/dev/urandom bs=1M count=1 of=Secure_Key" for Linux or "openssl rand 32 > Secure_Key" for both) since, you "suppose to" encrypt your message with it.
 
 Of course, the key (or the passphrase) should be really [strong](https://www.youtube.com/watch?v=IPphyjkXnPc).
 
